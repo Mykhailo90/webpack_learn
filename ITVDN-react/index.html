@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello World</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="content"></div>
+
+    <script type = "text/babel">
+       var CONTACTS = [
+           {
+               id:1,
+               name:'Vasya',
+               phoneNumber: '+30668884028',
+               image: 'http://www.clker.com/cliparts/R/S/Z/4/t/f/crossed-hammers-bw-100x100-md.png'
+            }, {
+                id:2,
+               name:'Masha',
+               phoneNumber: '+30665884029',
+               image: 'http://www.clker.com/cliparts/R/S/Z/4/t/f/crossed-hammers-bw-100x100-md.png'
+            }, {
+                id:3,
+               name:'Oleg',
+               phoneNumber: '+30665875029',
+               image: 'http://www.clker.com/cliparts/R/S/Z/4/t/f/crossed-hammers-bw-100x100-md.png'
+            }, {
+                id:4,
+               name:'Olya',
+               phoneNumber: '+30675875059',
+               image: 'http://www.clker.com/cliparts/R/S/Z/4/t/f/crossed-hammers-bw-100x100-md.png'
+            }, {
+                id:5,
+               name:'Max',
+               phoneNumber: '+30687775029',
+               image: 'http://www.clker.com/cliparts/R/S/Z/4/t/f/crossed-hammers-bw-100x100-md.png'
+            }
+       ];
+
+       var Contact = React.createClass({
+           render: function () {
+               return <li className="contact">
+                        <img className="contact-image" src = {this.props.image} width="60px" height="60px" />
+                        
+                        <div className="contact-info">
+                            <div className="contact-name">{this.props.name}</div>
+                            <div className="contact-number">{this.props.phoneNumber}</div>
+                        </div>
+               </li>
+           }
+       });
+
+       var ContactList = React.createClass({
+           //  Инициализируем начальное состояние объекта!
+           getInitialState: function () {
+             return {
+                displayedContacts: CONTACTS
+             };
+
+           },
+
+           // Функция обработчик возникшего события, которое мы отлавливаем
+           handleSearch: function (event) {
+               // Получаем значение в поле инпут
+               var searchQuery = event.target.value.toLowerCase();
+               // Получаем новый массив (не затрагивая исходники)
+               var displayedContacts = CONTACTS.filter(function(el){
+                   // Добавляем поле в новы массив, если в искомом поле есть вхождение
+                   var serchValue = el.name.toLowerCase();
+                   return serchValue.indexOf(searchQuery) !== -1;
+               });
+
+            // Метод отвечает за изменение состояния в объекте
+               this.setState({
+                   displayedContacts: displayedContacts
+                   });
+           },
+
+// Отслеживаем событие onChange на input
+// Для отображения метод map вызываем не на базовом массиве, а на состоянии, определенном выше
+           render: function(){
+               return(
+                   <div className="contacts">
+                        <input type="text" className="search-field" onChange={this.handleSearch}/>
+                        <ul className="contacts-list">
+                        {
+                            this.state.displayedContacts.map(function(el) {
+                                return <Contact key={el.id}
+                                                name={el.name}
+                                                phoneNumber={el.phoneNumber}
+                                                image={el.image}
+                                        />
+                            })
+            
+                        }
+                        </ul>
+                   </div>
+               );
+           }
+       });
+
+// Метод отвечает за вывод информации конкретного компонента в дом дерево
+       ReactDOM.render(
+           <ContactList />,
+           document.getElementById("content")
+       );
+    </script>
+
+</body>
+</html>

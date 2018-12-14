@@ -1,0 +1,31 @@
+{
+    "name": "my-project",
+    "version": "1.0.0",
+    "description": "Demo project",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo\"Error: no test specified\" && exit 1"
+    },
+    "author": "msarapii",
+    "license": "ISC",
+    "dependencies": {
+        "dev": "*",
+        "jquery": "*",
+        "react": "*",
+        "react-dom": "*"
+    },
+    "devDependencies": {
+        "@babel/core": "*",
+        "@babel/preset-env": "*",
+        "autoprefixer-loader": "*",
+        "babel": "*",
+        "babel-loader": "*",
+        "css-loader": "*",
+        "file-loader": "*",
+        "json-loader": "*",
+        "style-loader": "*",
+        "url-loader": "*",
+        "webpack": "^4.0.0",
+        "webpack-cli": "*"
+    }
+}
